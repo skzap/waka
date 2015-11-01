@@ -6,7 +6,7 @@
 	<meta name="description" content="A peer to peer encyclopedia">
 	<title>Wakapedia</title>
 	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-	<link rel="stylesheet" href="/css/side-menu.css">
+	<link rel="stylesheet" href="/css/wakapedia.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -67,7 +67,25 @@
   </div>
 
   <div class="content">
-      {{content}}
+      <div class="markdown">
+          {{{contentHtml}}}
+      </div>
+      <h2>Edit {{id}}</h2>
+      <div class="edit" style="">
+          <form id="formEdit" class="pure-form">
+              <fieldset class="pure-group">
+                  <input type="text" class="pure-input-1" placeholder="{{id}}" value="{{id}}" />
+              </fieldset>
+              <fieldset class="pure-group">
+                  <input type="text" class="pure-input-1" placeholder="{{title}}" value="{{title}}" />
+              </fieldset>
+              <fieldset class="pure-group">
+                  <textarea class="pure-input-1" placeholder="{{content}}">{{content}}</textarea>
+              </fieldset>
+
+              <button type="submit" class="pure-button pure-input-1 pure-button-primary">Save</button>
+          </form>
+      </div>
   </div>
 </script>
 <script id="network-template" type="text/x-handlebars-template">
@@ -105,7 +123,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/idbwrapper/1.6.0/idbstore.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.3/handlebars.min.js"></script>
 <script src="https://cdn.rawgit.com/visionmedia/page.js/master/page.js"></script>
-<script src="//cdn.jsdelivr.net/pouchdb/5.0.0/pouchdb.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js"></script>
 
 <script src="/js/config.js"></script>
 <script src="/js/peer-protocol.js"></script>

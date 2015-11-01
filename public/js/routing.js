@@ -28,11 +28,28 @@ var routes = {
 		$("#main").html(template(context))
 	},
 	article: function(context) {
+		if (typeof myIndexes == 'undefined')
+			return
 		var articleName = decodeURIComponent(context.params.name);
 		var template = Handlebars.compile($("#article-template").html())
 		if (myIndexes.indexOf(articleName) > -1) {
 			Articles.get(articleName, function(result) {
+				// article found, displaying it
+				result.contentHtml = marked(result.content)
 				$("#main").html(template(result))
+				$( "#formEdit" ).submit(function(e) {
+					e.preventDefault()
+					var formInputs = $('#formEdit :input')
+				  var newArticle = {
+				  	id: formInputs[0].value,
+				  	title: formInputs[1].value,
+				  	content: formInputs[2].value
+				  }
+				  Articles.put(newArticle, function(res) {
+				  	console.log(res)
+				  })
+				  
+				});
 			})
 		} else {
 			for (var i = myPeerIndexes.length - 1; i >= 0; i--) {

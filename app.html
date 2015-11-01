@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="A peer to peer encyclopedia">
+	<title>Wakapedia</title>
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+	<link rel="stylesheet" href="/css/side-menu.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+<body>
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+            <a class="pure-menu-heading" href="/">Wakapedia</a>
+
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item"><a href="/articles" class="pure-menu-link"><i class="fa fa-book"></i> Articles</a></li>
+                <li class="pure-menu-item"><a href="/network" class="pure-menu-link"><i id="iconNetwork" class="fa fa-cog fa-spin"></i> Network</a></li>
+                <!-- <form class="pure-form pure-menu-item">
+								    <input type="text" class="pure-input-1" placeholder="Search...">
+								</form> -->
+								<!-- <input id="fileUpload" type="file" /> -->
+            </ul>
+
+        </div>
+    </div>
+
+    <div id="main">
+        
+    </div>
+</div>
+<!-- templates -->
+<script id="homepage-template" type="text/x-handlebars-template">
+	<div class="header">
+      <h1>Wakapedia</h1>
+      <h2>A truly open and cooperative encyclopedia</h2>
+  </div>
+
+  <div class="content">
+      <h2 class="content-subhead">Why do we need an alternative?</h2>
+      <p>
+          Wikipedia’s model is archaic. They have centralised the human knowledge into their servers and beg us to donate to keep them running. Instead, Wakapedia hosts the content inside <i>your browser</i> and shares it with peer-to-peer technologies.
+      </p>
+
+      <h2 class="content-subhead">Information belongs to everyone</h2>
+      <p>
+          All the articles contents on Wakapedia are truly peer-to-peer. Anyone can edit anything. If you edit an article, new peers connecting to you will see your version.
+      </p>
+      <h2 class="content-subhead">You are connected to {{peerCount}} peers</h2>
+      <p>
+          
+      </p>
+  </div>
+</script>
+<script id="article-template" type="text/x-handlebars-template">
+	<div class="header">
+      <h1>{{id}}</h1>
+      <h2>{{title}}</h2>
+  </div>
+
+  <div class="content">
+      {{content}}
+  </div>
+</script>
+<script id="network-template" type="text/x-handlebars-template">
+	<div class="header">
+      <h1>Network Stats</h1>
+  </div>
+  <div class="content">
+  	<h2>Your PeerId: {{peerId}}</h2>
+  	<h2>Peers connected: {{peerCount}}</h2>
+  </div>
+</script>
+<script id="articles-template" type="text/x-handlebars-template">
+	<div class="header">
+      <h1>Articles</h1>
+  </div>
+  <div class="content">
+  	<h2>Hosted</h2>
+      {{#each hosted}}
+      	<li><a href="./article/{{this}}">{{this}}<a></li>
+      {{/each}}
+      <h2>Peer Hosted</h2>
+      {{#each peerHosted}}
+      	{{#each data}}
+      		<li><a href="./article/{{this}}">{{this}}<a></li>
+      	{{/each}}
+      {{/each}}
+  </div>
+</script>
+
+
+
+<!-- js deps -->
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/0.3.14/peer.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/idbwrapper/1.6.0/idbstore.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.3/handlebars.min.js"></script>
+<script src="https://cdn.rawgit.com/visionmedia/page.js/master/page.js"></script>
+<script src="//cdn.jsdelivr.net/pouchdb/5.0.0/pouchdb.min.js"></script>
+
+<script src="/js/config.js"></script>
+<script src="/js/peer-protocol.js"></script>
+<script src="/js/routing.js"></script>
+<script src="/js/ui.js"></script>
+</body>
+</html>

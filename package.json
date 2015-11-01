@@ -1,0 +1,23 @@
+{
+  "name": "p2p-website",
+  "version": "0.0.1",
+  "description": "website that gets all its data shared with peer js between each other in order to reduce server costs",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.13.3",
+    "peer": "^0.2.8",
+    "winston": "^1.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "p2p",
+    "peer",
+    "website",
+    "database"
+  ],
+  "author": "Adrien M",
+  "license": "GPLv2"
+}

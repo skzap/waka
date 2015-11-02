@@ -36,8 +36,8 @@ var routes = {
 			Articles.get(articleName, function(result) {
 				// article found, displaying it
 				// converting to markdown
-				result.contentHtml = marked(result.content)
-
+				//result.contentHtml = marked(result.content)
+				result.contentHtml = Markdown(result.content)
 				// extra syntax
 				// [[ ]] Double matching brackets wiki style
 				var tempContent = result.content
@@ -60,6 +60,7 @@ var routes = {
 				
 				$("#main").html(template(result))
 				$('.content img').addClass('pure-img')
+				$('.content table').addClass('pure-table')
 				$( "#formEdit" ).submit(function(e) {
 					e.preventDefault()
 					var formInputs = $('#formEdit :input')

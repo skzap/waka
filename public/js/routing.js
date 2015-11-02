@@ -37,6 +37,7 @@ var routes = {
 				// article found, displaying it
 				result.contentHtml = marked(result.content)
 				$("#main").html(template(result))
+				$('.content img').addClass('pure-img')
 				$( "#formEdit" ).submit(function(e) {
 					e.preventDefault()
 					var formInputs = $('#formEdit :input')
@@ -48,7 +49,6 @@ var routes = {
 				  Articles.put(newArticle, function(res) {
 				  	console.log(res)
 				  })
-				  
 				});
 			})
 		} else {

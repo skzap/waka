@@ -69,7 +69,8 @@ var routes = {
 				  	content: formInputs[2].value
 				  }
 				  Articles.put(newArticle, function(res) {
-				  	console.log(res)
+				  	console.log(res+' saved')
+				  	page(page.current)
 				  })
 				});
 			})

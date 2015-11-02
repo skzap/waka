@@ -35,7 +35,29 @@ var routes = {
 		if (myIndexes.indexOf(articleName) > -1) {
 			Articles.get(articleName, function(result) {
 				// article found, displaying it
+				// converting to markdown
 				result.contentHtml = marked(result.content)
+
+				// extra syntax
+				// [[ ]] Double matching brackets wiki style
+				var tempContent = result.content
+				var words = []
+				var wordsMarkdown = []
+				while (tempContent.indexOf('[[') > -1 && tempContent.indexOf(']]') > -1) {
+					words.push(tempContent.substring(tempContent.indexOf('[['), tempContent.indexOf(']]')+2))
+					tempContent = tempContent.substr(tempContent.indexOf(']]')+2)
+				}
+				for (var i = 0; i < words.length; i++) {
+					if (words[i].indexOf('|') > -1) {
+						var link = words[i].substring(2, words[i].indexOf('|'))
+						var display = words[i].substring(words[i].indexOf('|')+1, words[i].length-2)
+						wordsMarkdown.push('<a href="/article/'+link+'">'+display+'</a>')
+					}
+					else
+						wordsMarkdown.push('<a href="/article/'+words[i].substring(2, words[i].length-2)+'">'+words[i].substring(2, words[i].length-2)+'</a>')
+					result.contentHtml = result.contentHtml.replace(words[i], wordsMarkdown[i])
+				}
+				
 				$("#main").html(template(result))
 				$('.content img').addClass('pure-img')
 				$( "#formEdit" ).submit(function(e) {

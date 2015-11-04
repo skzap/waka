@@ -85,6 +85,7 @@ $('document').ready(function(){
 	  			break
 	  		case 'share':
 	  			console.log('share')
+	  			console.log(data)
 	  			if (Art.acceptShare.indexOf(data.data.id)) {
 		  			Art.DB.put(data.data)
 		  			Art.myIndexes.push(data.data.id)

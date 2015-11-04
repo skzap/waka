@@ -78,9 +78,11 @@ var routes = {
 		} else {
 			for (var i = Art.myPeerIndexes.length - 1; i >= 0; i--) {
 				if (Art.myPeerIndexes[i].data.indexOf(articleName) > -1) {
+					if (Art.acceptShare.indexOf(articleName) == -1)
+						Art.acceptShare.push(articleName)
 					peer.connections[Art.myPeerIndexes[i].peer][0].send({c: 'search', data: articleName})
 				}
-			};
+			}
 		}
 	},
 	network: function() {

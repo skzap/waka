@@ -85,8 +85,10 @@ $('document').ready(function(){
 	  			break
 	  		case 'share':
 	  			console.log('share')
-	  			Art.DB.put(data.data)
-	  			Art.myIndexes.push(data.data.id)
+	  			if (Art.acceptShare.indexOf(data.data.id)) {
+		  			Art.DB.put(data.data)
+		  			Art.myIndexes.push(data.data.id)
+		  		}
 	  			break
 	  	}
 	  })

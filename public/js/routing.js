@@ -15,25 +15,25 @@ var routes = {
 		var template = Handlebars.compile($("#homepage-template").html())
 		var context = {}
 		if (typeof myPeers !== 'undefined')
-			context.peerCount = myPeers.length
+			context.peerCount = Art.myPeers.length
 		$("#main").html(template(context))
 	},
 	articles: function() {
 		var template = Handlebars.compile($("#articles-template").html())
 		var context = {}
-		if (typeof myPeers !== 'undefined')
-			context.hosted = myIndexes
-		if (typeof myPeerIndexes !== 'undefined')
-			context.peerHosted = myPeerIndexes
+		if (typeof Art !== 'undefined')
+			context.hosted = Art.myIndexes
+		if (typeof Art !== 'undefined')
+			context.peerHosted = Art.myPeerIndexes
 		$("#main").html(template(context))
 	},
 	article: function(context) {
-		if (typeof myIndexes == 'undefined')
+		if (typeof Art == 'undefined')
 			return
 		var articleName = decodeURIComponent(context.params.name);
 		var template = Handlebars.compile($("#article-template").html())
-		if (myIndexes.indexOf(articleName) > -1) {
-			Articles.get(articleName, function(result) {
+		if (Art.myIndexes.indexOf(articleName) > -1) {
+			Art.DB.get(articleName, function(result) {
 				// article found, displaying it
 				// converting to markdown
 				//result.contentHtml = marked(result.content)
@@ -69,16 +69,16 @@ var routes = {
 				  	title: formInputs[1].value,
 				  	content: formInputs[2].value
 				  }
-				  Articles.put(newArticle, function(res) {
+				  Art.DB.put(newArticle, function(res) {
 				  	console.log(res+' saved')
 				  	page(page.current)
 				  })
 				});
 			})
 		} else {
-			for (var i = myPeerIndexes.length - 1; i >= 0; i--) {
-				if (myPeerIndexes[i].data.indexOf(articleName) > -1) {
-					peer.connections[myPeerIndexes[i].peer][0].send({c: 'search', data: articleName})
+			for (var i = Art.myPeerIndexes.length - 1; i >= 0; i--) {
+				if (Art.myPeerIndexes[i].data.indexOf(articleName) > -1) {
+					peer.connections[Art.myPeerIndexes[i].peer][0].send({c: 'search', data: articleName})
 				}
 			};
 		}
@@ -86,9 +86,9 @@ var routes = {
 	network: function() {
 		var template = Handlebars.compile($("#network-template").html())
 		var context = {}
-		if (typeof myPeers !== 'undefined')
-			context.peerCount = myPeers.length
-		if (typeof peer !== 'undefined')
+		if (typeof Art !== 'undefined')
+			context.peerCount = Art.myPeers.length
+		if (typeof Art !== 'undefined')
 			context.peerId = peer.id
 		$("#main").html(template(context))
 	},
@@ -102,19 +102,19 @@ var routes = {
 
 routes.autoRefresh = setInterval(function() {
 	if (page.current == '/')
-		if (routes.watch('countPeers', myPeers.length))
+		if (routes.watch('countPeers', Art.myPeers.length))
 			routes.index()
 	if (page.current == '/articles')
-		if (routes.watch('countPeers', myPeers.length))
+		if (routes.watch('countPeers', Art.myPeers.length))
 			routes.articles()
 	if (page.current == '/network') {
-		if (routes.watch('countPeers', myPeers.length)
+		if (routes.watch('countPeers', Art.myPeers.length)
 			|| routes.watch('peerId', peer.id))
 			routes.network()
 	}
 		
 	if (page.current.substr(0,9) == '/article/') {
-		Articles.count(function(res){
+		Art.DB.count(function(res){
 			if (routes.watch('countArt', res))
 				routes.article({params: {name: page.current.substr(9)}})
 		})

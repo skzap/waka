@@ -86,7 +86,7 @@ $('document').ready(function(){
 	  		case 'share':
 	  			console.log('share')
 	  			console.log(data)
-	  			if (Art.acceptShare.indexOf(data.data.id)) {
+	  			if (Art.acceptShare.indexOf(data.data.id) > -1) {
 		  			Art.DB.put(data.data)
 		  			Art.myIndexes.push(data.data.id)
 		  		}

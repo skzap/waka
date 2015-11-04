@@ -46,9 +46,9 @@ $('document').ready(function(){
 
 	setInterval(function(){
 		// autorun function for convenience
-		if (Art.myPeers.length > 0 && $('#iconNetwork').hasClass('fa-cog'))
+		if (Art.myPeers.length > 0 && $('#iconNetwork').hasClass('fa-spin'))
 			$('#iconNetwork').removeClass('fa-spin')
-		if (Art.myPeers.length == 0 && !$('#iconNetwork').hasClass('fa-cog'))
+		if (Art.myPeers.length == 0 && !$('#iconNetwork').hasClass('fa-spin'))
 			$('#iconNetwork').addClass('fa-spin')
 	}, 250);
 

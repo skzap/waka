@@ -74,7 +74,7 @@
       <div class="edit" style="">
           <form id="formEdit" class="pure-form">
               <fieldset class="pure-group">
-                  <input type="text" class="pure-input-1" placeholder="{{id}}" value="{{id}}" />
+                  <input type="text" class="pure-input-1" placeholder="{{id}}" value="{{id}}" disabled/>
               </fieldset>
               <fieldset class="pure-group">
                   <input type="text" class="pure-input-1" placeholder="{{title}}" value="{{title}}" />
@@ -102,14 +102,15 @@
       <h1>Articles</h1>
   </div>
   <div class="content">
+    <button id="newArticle" class="pure-button pure-button-primary">Host new article</button>
   	<h2>Hosted</h2>
       {{#each hosted}}
-      	<li><a href="./article/{{this}}">{{this}}<a></li>
+      	<li><a href="/a/{{this}}">{{this}}</a></li>
       {{/each}}
       <h2>Peer Hosted</h2>
       {{#each peerHosted}}
       	{{#each data}}
-      		<li><a href="./article/{{this}}">{{this}}<a></li>
+      		<li><a href="/a/{{this}}">{{this}}<a></li>
       	{{/each}}
       {{/each}}
   </div>

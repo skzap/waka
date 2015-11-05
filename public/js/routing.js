@@ -26,6 +26,12 @@ var routes = {
 		if (typeof Art !== 'undefined')
 			context.peerHosted = Art.myPeerIndexes
 		$("#main").html(template(context))
+		$( "#newArticle" ).click(function(e) {
+			var articleName = prompt("What is the name of your article?", "")
+			Art.DB.put({id: articleName, title:'', content:''})
+			Art.myIndexes.push(articleName)
+			page('/a/' + articleName)
+		})
 	},
 	article: function(context) {
 		if (typeof Art == 'undefined')
@@ -51,10 +57,10 @@ var routes = {
 					if (words[i].indexOf('|') > -1) {
 						var link = words[i].substring(2, words[i].indexOf('|'))
 						var display = words[i].substring(words[i].indexOf('|')+1, words[i].length-2)
-						wordsMarkdown.push('<a href="/article/'+link+'">'+display+'</a>')
+						wordsMarkdown.push('<a href="/a/'+link+'">'+display+'</a>')
 					}
 					else
-						wordsMarkdown.push('<a href="/article/'+words[i].substring(2, words[i].length-2)+'">'+words[i].substring(2, words[i].length-2)+'</a>')
+						wordsMarkdown.push('<a href="/a/'+words[i].substring(2, words[i].length-2)+'">'+words[i].substring(2, words[i].length-2)+'</a>')
 					result.contentHtml = result.contentHtml.replace(words[i], wordsMarkdown[i])
 				}
 				
@@ -73,7 +79,7 @@ var routes = {
 				  	console.log(res+' saved')
 				  	page(page.current)
 				  })
-				});
+				})
 			})
 		} else {
 			for (var i = Art.myPeerIndexes.length - 1; i >= 0; i--) {
@@ -115,10 +121,10 @@ routes.autoRefresh = setInterval(function() {
 			routes.network()
 	}
 		
-	if (page.current.substr(0,9) == '/article/') {
+	if (page.current.substr(0,3) == '/a/') {
 		Art.DB.count(function(res){
 			if (routes.watch('countArt', res))
-				routes.article({params: {name: page.current.substr(9)}})
+				routes.article({params: {name: page.current.substr(3)}})
 		})
 	}
 }, 500)
@@ -139,7 +145,7 @@ $('#fileUpload').on('change', function(ev) {
 page('/', routes.index)
 page('/articles', routes.articles)
 page('/network', routes.network)
-page('/article/:name', routes.article)
+page('/a/:name', routes.article)
 page('*', routes.notfound)
 //page(page.current)
 page()

@@ -18,7 +18,7 @@ Demo: [Wakapedia.info](HTTP://WAKAPEDIA.INFO)
 ## Server.js
 To get your own waka website running: 
 
-    https://github.com/skzap/waka.git
+    git clone https://github.com/skzap/waka.git
     npm install
 Then add a file /js/public/config.js
 
